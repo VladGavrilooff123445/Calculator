@@ -10,12 +10,18 @@ namespace Calculator1
     {
         public string Add(string str)
         {
-            string[] numbers = str.Split(new char[] { '+' });
-            foreach (string s in numbers)
+            string[] numbers = str.Split(new char[] { ',', ';', ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            int result = 0;
+            foreach (string num in numbers)
             {
-                Console.WriteLine(s);
+                result += Convert.ToInt32(num);
             }
-            return "That's all";
+                
+            string res = Convert.ToString(result);
+               
+
+            
+            return res;
         }
     }
 }
