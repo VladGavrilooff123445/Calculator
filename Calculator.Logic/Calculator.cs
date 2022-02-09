@@ -1,79 +1,71 @@
 ﻿using System;
+using System.Linq;
 
 namespace CalculatorLogic
 {
     public class Calculator
     {
-        
-        public int Add(string str)
+        public int Add(string numbers)
         {
-            if (str.EndsWith("\n"))
+            if (numbers == "")
             {
                 return 0;
             }
 
-
-            if (str.StartsWith("//"))
+            if (numbers.StartsWith("//"))
             {
-                string[] cust = str.Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
-                string[] delimiters = cust[0].Split(new char[] { '[', ']', '/' }, StringSplitOptions.RemoveEmptyEntries);
+                string[] numbersWithOutDelimeters = NumbersWithCustomDelimiters(numbers);
 
-                
-
-                
-                
-
-
-                string[] numbers = cust[1].Split(delimiters, StringSplitOptions.RemoveEmptyEntries);
-                
-
-                int result = 0;
-
-                foreach (string num in numbers)
-                {
-                    if (num.StartsWith("-"))
-                    {
-                        throw new Exception("negatives not allowed");
-                    }
-
-
-                    if (!(Convert.ToInt32(num) >= 1000))
-                    {
-                        result += Convert.ToInt32(num);
-                    }
-
-                }
-
-                return result;
+                return Result(numbersWithOutDelimeters);
             }
-
             else
             {
-
                 char[] delimiters = { ',' };
-                string[] numbers = str.Split(delimiters, StringSplitOptions.RemoveEmptyEntries);
+                string[] listOfNumbers = numbers.Split(delimiters, StringSplitOptions.RemoveEmptyEntries);
 
-                int result = 0;
-
-                foreach (string num in numbers)
-                {
-                    if (num.StartsWith("-"))
-                    {
-                        throw new Exception("negatives not allowed");
-                    }
-
-
-                    if ((Convert.ToInt32(num) >= 1000) == false)
-                    {
-                        result += Convert.ToInt32(num);
-                    }
-
-                }
-
-                return result;
+ 
+                return Result(listOfNumbers);
             }
+        }
 
-            
+        private string[] NumbersWithCustomDelimiters(string numbers)
+        {
+            int numbersIndex = 1;
+            int customDelimitersPosition = 0;
+
+            string[] splitedInput = numbers
+                .Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
+            string[] delimiters = splitedInput[customDelimitersPosition]
+                .Split(new char[] { '[', ']', '/' }, StringSplitOptions.RemoveEmptyEntries);
+
+            string[] listOfNumbers = splitedInput[numbersIndex].Split(delimiters, StringSplitOptions.RemoveEmptyEntries);
+
+
+            return listOfNumbers;
+        }
+
+        private int Result(string[] numbers)
+        {
+            int result = 0;
+            CheckNegatives(numbers);
+            result = numbers.Select(_ => Convert.ToInt32(_))
+                .Where(_ => _ < 1000)
+                .Sum();
+
+            return result;
+        }
+
+        private void CheckNegatives(string[] numbers)
+        {
+            var negatives = numbers.Select(_ => Convert.ToInt32(_))
+                .Where(_ => _ < 0);
+            var negativesString = string.Join(' ', negatives);
+                
+
+            if (negatives.Count() > 0)
+            {
+                throw new Exception($"negatives not allowed: {negativesString}");
+            }
         }
     }
 }
