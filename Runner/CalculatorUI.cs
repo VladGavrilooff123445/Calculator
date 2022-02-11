@@ -3,10 +3,11 @@ using CalculatorLogic;
 
 namespace Runner
 {
-    class CalculatorUI
+    public class CalculatorUI
     {
         private int itterator = 0;
         private Calculator calculate;
+        
 
         public CalculatorUI()
         {
@@ -19,14 +20,14 @@ namespace Runner
             {
                 if (itterator == 0)
                 {
-                    Console.WriteLine("Enter comma separated numbers");
+                    Console.WriteLine(ProduceFirstMessage());
                 }
 
                 int result = calculate.Add(Console.ReadLine());
 
-                Console.WriteLine($"Result is: {result}");
+                Console.WriteLine(PrintResult(result));
 
-                Console.WriteLine("you can enter other numbers (enter to exit)?");
+                Console.WriteLine(ProduceSecondMessage());
                 if (Convert.ToChar(Console.Read()) == (char)13)
                 {
                     break;
@@ -36,6 +37,21 @@ namespace Runner
                     itterator++;
                 }
             }
+        }
+
+        public string ProduceFirstMessage()
+        {
+            return "Enter comma separated numbers";
+        }
+
+        public string ProduceSecondMessage()
+        {
+            return "you can enter other numbers (enter to exit)?";
+        }
+
+        public string PrintResult(int result)
+        {
+            return $"Result is: {result}";
         }
     }
 }

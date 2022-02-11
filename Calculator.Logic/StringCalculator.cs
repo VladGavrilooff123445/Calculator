@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
 
-namespace CalculatorLogic
+namespace Calculator.Logic
 {
-    public class Calculator
+    public class StringCalculator
     {
         public int Add(string numbers)
         {
@@ -23,7 +23,6 @@ namespace CalculatorLogic
                 char[] delimiters = { ',' };
                 string[] listOfNumbers = numbers.Split(delimiters, StringSplitOptions.RemoveEmptyEntries);
 
- 
                 return Result(listOfNumbers);
             }
         }
@@ -48,8 +47,8 @@ namespace CalculatorLogic
         {
             int result = 0;
             CheckNegatives(numbers);
-            result = numbers.Select(_ => Convert.ToInt32(_))
-                .Where(_ => _ < 1000)
+            result = numbers.Select(a => Convert.ToInt32(a))
+                .Where(a => a < 1000)
                 .Sum();
 
             return result;

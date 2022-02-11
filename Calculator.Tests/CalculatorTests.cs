@@ -1,5 +1,5 @@
 using System;
-using CalculatorLogic;
+using Calculator.Logic;
 using NUnit.Framework;
 
 
@@ -7,11 +7,11 @@ namespace CalculatorTest
 {
     public class CalculatorTests
     {
-        private Calculator calculate;
+        private StringCalculator calculate;
 
         public CalculatorTests()
         {
-            calculate = new Calculator();
+            calculate = new StringCalculator();
         }
 
 
