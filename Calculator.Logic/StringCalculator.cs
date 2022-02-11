@@ -5,7 +5,7 @@ namespace Calculator.Logic
 {
     public class StringCalculator
     {
-        public int Add(string numbers)
+        public virtual int Add(string numbers)
         {
             if (numbers == "")
             {
@@ -47,6 +47,7 @@ namespace Calculator.Logic
         {
             int result = 0;
             CheckNegatives(numbers);
+
             result = numbers.Select(a => Convert.ToInt32(a))
                 .Where(a => a < 1000)
                 .Sum();
@@ -56,12 +57,11 @@ namespace Calculator.Logic
 
         private void CheckNegatives(string[] numbers)
         {
-            var negatives = numbers.Select(_ => Convert.ToInt32(_))
+            var negatives = numbers.Select(int.Parse)
                 .Where(_ => _ < 0);
             var negativesString = string.Join(' ', negatives);
-                
 
-            if (negatives.Count() > 0)
+            if (negatives.Any())
             {
                 throw new Exception($"negatives not allowed: {negativesString}");
             }

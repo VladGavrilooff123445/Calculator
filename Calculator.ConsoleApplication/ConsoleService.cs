@@ -4,24 +4,17 @@ namespace Calculator.ConsoleApplication
 {
     public class ConsoleService
     {
-        public void WriteLine(string message)
+        public virtual void WriteLine(string message)
         {
             Console.WriteLine(message);
         }
 
-        public bool IsESCPressed()
+        public virtual bool IsESCPressed()
         {
-            if (Console.ReadKey().Key == ConsoleKey.Escape)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return Console.ReadKey().Key == ConsoleKey.Escape;
         }
 
-        public string ReadLine()
+        public virtual string ReadLine()
         {
             return Console.ReadLine();
         }

@@ -1,21 +1,21 @@
 ﻿using Calculator.Logic;
-using System;
 
 namespace Calculator.ConsoleApplication
 {
     public class ConsoleApp
     {
         private const string FirstMessage = "Enter comma separated numbers";
-        private const string SecondMessage = "you can enter other numbers (enter to exit)?";
-        private bool PressESC = false;
-        private bool IsFirstMessage = true;
+        private const string ChoiceMessage = "Press esc to exit or enter to continue";        
+        private string _numbers;
+        private int _result = 0;
+        private bool _pressESC = false;
         private StringCalculator calculate;
-        private ConsoleService service;
+        private ConsoleService serviceConsole;
 
 
         public ConsoleApp(ConsoleService consoleService, StringCalculator calculator)
         {
-            service = consoleService;
+            serviceConsole = consoleService;
             calculate = calculator;
         }
 
@@ -23,28 +23,24 @@ namespace Calculator.ConsoleApplication
         {
             while (true)
             {
-                if (IsFirstMessage)
-                {
-                    service.WriteLine(FirstMessage);
-                    IsFirstMessage = false;
-                }
+                serviceConsole.WriteLine(FirstMessage);
+             
+                _numbers = serviceConsole.ReadLine();
+                _result = calculate.Add(_numbers);
 
-                var result = calculate.Add(service.ReadLine());
-                service.WriteLine($"Result is: {result}");
+                serviceConsole.WriteLine($"Result is: {_result}");
+                serviceConsole.WriteLine(ChoiceMessage);
 
-                service.WriteLine(SecondMessage);
+                _pressESC = serviceConsole.IsESCPressed();
 
-                PressESC = service.IsESCPressed();
-
-                if (PressESC)
+                if (_pressESC)
                 {
                     break;
                 }
 
-
             }
         }
-         
+
     }
 }
 
