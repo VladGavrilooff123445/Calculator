@@ -12,19 +12,11 @@ namespace Calculator.Logic
                 return 0;
             }
 
-            if (numbers.StartsWith("//"))
-            {
-                string[] numbersWithOutDelimeters = NumbersWithCustomDelimiters(numbers);
-
-                return Result(numbersWithOutDelimeters);
-            }
             else
             {
-                char[] delimiters = { ',' };
-                string[] listOfNumbers = numbers.Split(delimiters, StringSplitOptions.RemoveEmptyEntries);
-
-                return Result(listOfNumbers);
+                return Result(ValidationString(numbers));
             }
+           
         }
 
         private string[] NumbersWithCustomDelimiters(string numbers)
@@ -35,7 +27,7 @@ namespace Calculator.Logic
             string[] splitedInput = numbers
                 .Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
             string[] delimiters = splitedInput[customDelimitersPosition]
-                .Split(new char[] { '[', ']', '/' }, StringSplitOptions.RemoveEmptyEntries);
+                .Split(new char[] { '[', ']', '\\', '\n' }, StringSplitOptions.RemoveEmptyEntries);
 
             string[] listOfNumbers = splitedInput[numbersIndex].Split(delimiters, StringSplitOptions.RemoveEmptyEntries);
 
@@ -64,6 +56,23 @@ namespace Calculator.Logic
             if (negatives.Any())
             {
                 throw new Exception($"negatives not allowed: {negativesString}");
+            }
+        }
+
+        private string[] ValidationString(string numbers)
+        {
+            if (numbers.StartsWith("//"))
+            {
+                string[] numbersWithOutDelimeters = NumbersWithCustomDelimiters(numbers);
+
+                return numbersWithOutDelimeters;
+            }
+            else
+            {
+                char delimiters = ',';
+                string[] listOfNumbers = numbers.Split(delimiters, StringSplitOptions.RemoveEmptyEntries);
+
+                return listOfNumbers;
             }
         }
     }

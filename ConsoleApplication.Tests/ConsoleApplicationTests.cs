@@ -1,5 +1,4 @@
 using Moq;
-using System;
 using Calculator.ConsoleApplication;
 using Calculator.Logic;
 using NUnit.Framework;
@@ -18,7 +17,6 @@ namespace CalculatorUI.Tests
             var consoleServiceMock = new Mock<ConsoleService>();
             consoleServiceMock.Setup(_ => _.WriteLine("Enter comma separated numbers"));
             consoleServiceMock.Setup(_ => _.ReadLine()).Returns("1,2,3,4");
-
 
             var consoleCalculatorMock = new Mock<StringCalculator>();
             consoleCalculatorMock.Setup(_ => _.Add("1,2,3,4")).Returns(10);
