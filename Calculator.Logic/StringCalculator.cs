@@ -14,9 +14,12 @@ namespace Calculator.Logic
 
             else
             {
-                return Result(ValidationString(numbers));
+                var numbersString = ValidationString(numbers);
+                int[] numbersArray = IntArray(numbersString);
+
+                return Result(numbersArray);
             }
-           
+
         }
 
         private string[] NumbersWithCustomDelimiters(string numbers)
@@ -35,21 +38,21 @@ namespace Calculator.Logic
             return listOfNumbers;
         }
 
-        private int Result(string[] numbers)
+        private int Result(int[] numbers)
         {
             int result = 0;
             CheckNegatives(numbers);
 
-            result = numbers.Select(a => Convert.ToInt32(a))
+            result = numbers.Select(a => a)
                 .Where(a => a < 1000)
                 .Sum();
 
             return result;
         }
 
-        private void CheckNegatives(string[] numbers)
+        private void CheckNegatives(int[] numbers)
         {
-            var negatives = numbers.Select(int.Parse)
+            var negatives = numbers.Select(a => a)
                 .Where(_ => _ < 0);
             var negativesString = string.Join(' ', negatives);
 
@@ -74,6 +77,13 @@ namespace Calculator.Logic
 
                 return listOfNumbers;
             }
+        }
+
+        private int[] IntArray(string[] numbers)
+        {
+            int[] result = numbers.Select(a => Convert.ToInt32(a)).ToArray();
+
+            return result;
         }
     }
 }

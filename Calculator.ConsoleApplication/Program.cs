@@ -1,8 +1,6 @@
-﻿using Calculator.ConsoleApplication;
-using Calculator.Logic;
-using System;
+﻿using Calculator.Logic;
 
-namespace Calculator.ConsoleAplication
+namespace Calculator.ConsoleApplication
 {
     public class Program
     {
