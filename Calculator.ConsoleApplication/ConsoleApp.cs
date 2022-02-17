@@ -6,33 +6,32 @@ namespace Calculator.ConsoleApplication
     {
         private const string FirstMessage = "Enter comma separated numbers";
         private const string ChoiceMessage = "Press esc to exit or enter to continue";        
-        private StringCalculator calculate;
-        private ConsoleService serviceConsole;
+        private StringCalculator _calculate;
+        private ConsoleService _serviceConsole;
 
 
         public ConsoleApp(ConsoleService consoleService, StringCalculator calculator)
         {
-            serviceConsole = consoleService;
-            calculate = calculator;
+            _serviceConsole = consoleService;
+            _calculate = calculator;
         }
 
         public void UsingUI()
         {
-            string numbers;
-            int result = 0;
-            bool pressESC = false;
-
             while (true)
             {
-                serviceConsole.WriteLine(FirstMessage);
+                string numbers;
+                int result = 0;
+                bool pressESC = false;
+                _serviceConsole.WriteLine(FirstMessage);
              
-                numbers = serviceConsole.ReadLine();
-                result = calculate.Add(numbers);
+                numbers = _serviceConsole.ReadLine();
+                result = _calculate.Add(numbers);
 
-                serviceConsole.WriteLine($"Result is: {result}");
-                serviceConsole.WriteLine(ChoiceMessage);
+                _serviceConsole.WriteLine($"Result is: {result}");
+                _serviceConsole.WriteLine(ChoiceMessage);
 
-               pressESC = serviceConsole.IsESCPressed();
+               pressESC = _serviceConsole.IsESCPressed();
 
                 if (pressESC)
                 {

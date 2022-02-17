@@ -1,15 +1,14 @@
 using System;
-using Calculator.Logic;
 using NUnit.Framework;
 
 
-namespace CalculatorTest
+namespace Calculator.Logic.Tests
 {
-    public class CalculatorTests
+    public class LogicTests
     {
         private StringCalculator calculate;
 
-        public CalculatorTests()
+        public LogicTests()
         {
             calculate = new StringCalculator();
         }
@@ -50,7 +49,7 @@ namespace CalculatorTest
             var exception = Assert.Throws<Exception>(() => calculate.Add(numbers));
 
             Assert.AreEqual(expectedResult, exception.Message);
-            
+
         }
 
         [Test]
