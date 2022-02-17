@@ -1,10 +1,9 @@
 using Moq;
-using Calculator.ConsoleApplication;
 using Calculator.Logic;
 using NUnit.Framework;
 
 
-namespace CalculatorUI.Tests
+namespace Calculator.ConsoleApplication.Tests
 {
     public class ConsoleAppTests
     {
